@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import Adapter from './Adapter'
-// import SnackList from './SnackList';
 
 class MyGames extends Component {
   state = {
@@ -41,9 +39,7 @@ class MyGames extends Component {
 
 
   render() {
-    // console.log(this.state.games)
-    // console.log(Adapter.isLoggedIn())
-    console.log(this.props.id)
+    // console.log(this.props.id)
     let mygames = Array.from(this.state.games)
 
     return (

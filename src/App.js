@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import NavBar from './NavBar';
 import MyGames from './MyGames';
 import SignUpForm from './SignUpForm';
@@ -8,6 +8,8 @@ import Game from './Game';
 import HighScores from './HighScores';
 import Adapter from './Adapter';
 import Home from './Home'
+import Logo from './Logo'
+import LogoutButton from './LogoutButton'
 
 class App extends Component {
   constructor (props) {
@@ -26,7 +28,7 @@ class App extends Component {
     return (
         <div className="App">
           <NavBar />
-
+          <Logo />
           <Route exact path="/" component={Home} />
           { Adapter.isLoggedIn() ?
               null
@@ -36,9 +38,10 @@ class App extends Component {
                 <Route exact path="/login" component={(props) => <LoginForm {...props} setId={this.setId}/>} />
               </Fragment>
           }
+          <Route exact path="/logout" component={LogoutButton} />
           <Route exact path="/my-games" component={() => <MyGames id={this.state.id} />} />
           <Route exact path="/high-scores" component={HighScores} />
-          <Route exact path="/playgame" component={Game} />
+          <Route exact path="/playgame" component={() => <Game id={this.state.id} />} />
         </div>
     );
   }

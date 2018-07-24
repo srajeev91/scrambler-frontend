@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { NavLink } from 'react-router-dom';
 import Adapter from './Adapter';
-import LogoutButton from './LogoutButton';
+
 
 const NavBar = (props) => {
   return (
@@ -9,8 +9,8 @@ const NavBar = (props) => {
 
         { Adapter.isLoggedIn() ?
             <Fragment>
-              <LogoutButton />
-              <NavLink activeClassName="selected" exact to="/my-games">MyGames</NavLink>
+              <NavLink activeClassName="selected" exact to="/logout">Log Out</NavLink>
+              <NavLink activeClassName="selected" exact to="/my-games">My Games</NavLink>
               <NavLink activeClassName="selected" exact to="/highscores">High Scores</NavLink>
               <NavLink activeClassName="selected" exact to="/playgame">Play Game</NavLink>
             </Fragment>
