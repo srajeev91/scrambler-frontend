@@ -11,7 +11,7 @@ const NavBar = (props) => {
             <Fragment>
               <NavLink activeClassName="selected" exact to="/logout">Log Out</NavLink>
               <NavLink activeClassName="selected" exact to="/my-games">My Games</NavLink>
-              <NavLink activeClassName="selected" exact to="/highscores">High Scores</NavLink>
+              <NavLink activeClassName="selected" exact to="/high-scores">High Scores</NavLink>
               <NavLink activeClassName="selected" exact to="/playgame">Play Game</NavLink>
             </Fragment>
             /*

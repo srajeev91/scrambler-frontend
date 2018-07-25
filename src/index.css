@@ -3,3 +3,66 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.App {
+
+}
+
+.logo {
+  text-align: center;
+}
+
+.nav {
+  display: flex;
+  text-align: center;
+}
+
+.nav a {
+  flex: 1;
+  padding: 10px;
+  margin: 5px 15px;
+  border: 1px solid black;
+  text-decoration: none;
+  color: black;
+}
+
+.nav a:hover, .selected {
+  background: blue;
+}
+
+.home {
+  text-align: center;
+}
+
+.login *,
+.signup * {
+  font-size: 20px;
+}
+
+div.login, div.signup {
+  margin-top: 10px;
+}
+
+.login label {
+  margin: 0 20px;
+}
+
+.login input[type="submit"] {
+  margin: 0 20px;
+}
+
+.signup label {
+  margin: 0 20px;
+}
+
+.signup input[type="submit"] {
+  margin: 0 20px;
+}
+
+.game-timer {
+  text-align: center;
+}
+
+div.my-games, div.high-scores {
+  margin-left: 20px;
+}
