@@ -44,6 +44,10 @@ class MyGames extends Component {
     let ampm = 'AM'
     let minutes = unparsed.getMinutes()
 
+    if (String(minutes).length === 1) {
+      minutes = '0' + minutes
+    }
+
     if (hour === 12) {
       ampm = 'PM'
     } else if (hour > 12) {

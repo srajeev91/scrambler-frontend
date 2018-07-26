@@ -130,3 +130,24 @@ div.login, div.signup {
 .game {
   text-align: center;
 }
+
+.start {
+  text-align: center;
+  padding: 0 20px 0 20px;
+}
+
+.instructions button {
+  font-size: 16px;
+  width: 40%;
+  background-color: #2d6387;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.instructions button:hover {
+  background-color: #3D7EAA;
+}

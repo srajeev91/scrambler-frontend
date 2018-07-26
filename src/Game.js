@@ -335,6 +335,7 @@ class Game extends Component {
 
     return(
       <div>
+        <h4>Score: {this.state.score}</h4>
         {anagrams}
       </div>
     )
@@ -348,7 +349,7 @@ class Game extends Component {
 
   render() {
     return (
-      <div>
+      <div className="start">
         {(this.props.words.length === 0) ? <h2>LOADING</h2> : null}
         {(this.state.startGame === true || this.props.words.length === 0) ? null :
           <div className="instructions">
