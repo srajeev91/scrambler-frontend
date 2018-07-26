@@ -9,10 +9,10 @@ const NavBar = (props) => {
 
         { Adapter.isLoggedIn() ?
             <Fragment>
-              <NavLink activeClassName="selected" exact to="/logout">Log Out</NavLink>
-              <NavLink activeClassName="selected" exact to="/my-games">My Games</NavLink>
-              <NavLink activeClassName="selected" exact to="/high-scores">High Scores</NavLink>
-              <NavLink activeClassName="selected" exact to="/playgame">Play Game</NavLink>
+              <NavLink activeClassName="selected" exact to="/logout">LOG OUT</NavLink>
+              <NavLink activeClassName="selected" exact to="/my-games">MY GAMES</NavLink>
+              <NavLink activeClassName="selected" exact to="/high-scores">HIGH SCORES</NavLink>
+              <NavLink activeClassName="selected" exact to="/playgame">PLAY GAME</NavLink>
             </Fragment>
             /*
             <button onClick={() => {
@@ -22,8 +22,8 @@ const NavBar = (props) => {
             */
           :
             <Fragment>
-              <NavLink activeClassName="selected" exact to="/signup">Sign Up</NavLink>
-              <NavLink activeClassName="selected" exact to="/login">Login</NavLink>
+              <NavLink activeClassName="selected" exact to="/signup">SIGN UP</NavLink>
+              <NavLink activeClassName="selected" exact to="/login">LOGIN</NavLink>
             </Fragment>
         }
     </header>

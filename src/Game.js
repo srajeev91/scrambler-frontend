@@ -8,7 +8,10 @@ class Game extends Component {
       playing: false,
       startGame: false,
       gameOver: false,
+      words: [],
+      gameId: 0,
       wordLength: 4,
+      iteration: 0,
       wordsOfLength: [],
       currentWord: "word",
       scrambled: "",
@@ -31,7 +34,31 @@ class Game extends Component {
     // this.countDown = this.gameCountDown.bind(this)
   }
 
+  componentDidMount () {
+    fetch('http://localhost:3000/api/v1/words')
+    .then((response) => response.json())
+    .then(data => this.setState({words: data}))
+  }
+
   handleButton = () => {
+    console.log(this.props.id)
+    fetch('http://localhost:3000/api/v1/games', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        user_id: Number(this.props.id),
+        score: 0,
+        date: String(new Date())
+      })
+    })
+    .then(response => response.json())
+    .then(data => {
+      this.setState({
+        gameId: data.id
+      })
+
+    })
+
     this.setState({startGame: true, playing: true}, () => {this.getWord()})
   }
 
@@ -40,13 +67,12 @@ class Game extends Component {
     if (this.gameInterval === 0) {
       this.gameInterval = setInterval(() => {this.gameCountDown()}, 1000);
     }
-    this.startWordTimer()
   }
 
   startWordTimer = () => {
-    if (this.wordInterval === 0) {
+    // if (this.wordInterval === 0) {
       this.wordInterval = setInterval(() => {this.wordCountDown()}, 1000);
-    }
+    // }
   }
 
   wordCountDown() {
@@ -76,10 +102,29 @@ class Game extends Component {
   }
 
   endGame = () => {
+    this.setState({
+      playing: false,
+      gameOver: true,
+    })
     console.log('do post requests for score, allAnagrams, allWords??')
     console.log('set state for gameover:true, playing: false')
-    console.log('if playing is true, render component that goes through all anagrams')
+    console.log('if gameover is true, render component that goes through all anagrams')
     console.log(this.state)
+    this.postScore()
+  }
+
+  postScore = () => {
+    fetch(`http://localhost:3000/api/v1/user_games/${this.state.gameId}`, {
+      method: 'PATCH',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        score: this.state.score,
+        user_id: Number(this.props.id),
+        game_id: Number(this.state.gameId)
+      })
+    })
+    .then(response => response.json())
+    .then(data => data)
   }
 
   getWord () {
@@ -87,17 +132,25 @@ class Game extends Component {
       clearInterval(this.wordInterval);
     }
 
-    if (this.state.gameTimer > 0) {
-      fetch('http://localhost:3000/api/v1/words', {
-        method: 'GET',
-        headers: {'Content-Type': 'application/json'}
-      })
-      .then((response) => response.json())
-      .then(data => this.setState({
-        wordsOfLength: data.filter(wordObj => wordObj.length == this.state.wordLength)
-      }, () => {this.setWord()}))
+    if (this.state.iteration > 3) {
+      this.setState({
+        iteration: 1,
+        wordLength: this.state.wordLength + 1
+      }, () => {this.getWordTwo()})
+    } else {
+      this.setState({iteration: this.state.iteration + 1}, () => {this.getWordTwo()})
     }
+  }
 
+  getWordTwo = () => {
+    let allwords = this.state.words
+    if (this.state.gameTimer > 0 && this.state.iteration === 1) {
+      this.setState({
+        wordsOfLength: allwords.filter(wordObj => wordObj.length === this.state.wordLength)
+      }, () => {this.setWord()})
+    } else {
+      this.setWord()
+    }
   }
 
   setWord = () => {
@@ -116,23 +169,14 @@ class Game extends Component {
   setScramble = () => {
     let wordsarray = this.state.allWords.slice(0)
     wordsarray.push(this.state.currentWord)
-    let newWordTimer = 0
-
-    if (this.state.gameTimer >= 15) {
-      newWordTimer = 15
-    } else if (0 < this.state.gameTimer < 15) {
-      newWordTimer = this.state.gameTimer
-    }
 
     this.setState({
       allWords: wordsarray,
-      wordTimer: newWordTimer,
-      scrambled: this.randomize(this.state.currentWord)
     }, () => {this.fetchAnagrams()})
   }
 
   fetchAnagrams = () => {
-    this.wordInterval = setInterval(() => {this.wordCountDown()}, 1000);
+
 
     fetch(`https://danielthepope-countdown-v1.p.mashape.com/solve/${this.state.currentWord}`, {
       method: 'GET',
@@ -141,20 +185,44 @@ class Game extends Component {
     }).then(response => response.json())
     .then(
       data => this.setState({
+        scrambled: this.randomize(this.state.currentWord),
         currentAnagrams: data.map(wordObj => wordObj.word.toLowerCase())
-      }, () => {this.updateAllAnagrams()})
+      }, () => {
+        this.updateAllAnagrams()
+      })
     )
 
   }
 
   updateAllAnagrams = () => {
+    let currentWordAnagrams = this.state.currentAnagrams.slice(0)
+    if (!currentWordAnagrams.includes(this.state.currentWord) && currentWordAnagrams[0].length===this.state.currentWord.length) {
+      currentWordAnagrams.push(this.state.currentWord)
+    } else if (!currentWordAnagrams.includes(this.state.currentWord)) {
+      currentWordAnagrams = [this.state.currentWord]
+    }
+
+    let newWordTimer = 0
+
+    if (this.state.gameTimer >= 15) {
+      newWordTimer = 15
+    } else if (0 < this.state.gameTimer < 15) {
+      newWordTimer = this.state.gameTimer
+    }
+
+
     let allWordAnagrams = this.state.allAnagrams.slice(0)
-    allWordAnagrams.push(this.state.currentAnagrams)
-    this.setState({allAnagrams: allWordAnagrams})
+    allWordAnagrams.push(currentWordAnagrams)
+    this.setState({
+      currentAnagrams: currentWordAnagrams,
+      allAnagrams: allWordAnagrams,
+      wordTimer: newWordTimer
+    })
 
     if (this.state.gameTimer === 120) {
       this.startTimer()
     }
+    this.startWordTimer()
   }
 
 
@@ -211,7 +279,7 @@ class Game extends Component {
   wordValidity = (word) => {
     let correctGuesses = this.state.wordCorrectGuesses.slice(0)
 
-    if (this.state.currentAnagrams.includes(word) || word == this.state.currentWord) {
+    if (this.state.currentAnagrams.includes(word) || word === this.state.currentWord) {
       correctGuesses.push(word)
       this.setState({
         wordCorrectGuesses: correctGuesses
@@ -262,6 +330,16 @@ class Game extends Component {
     )
   }
 
+  gameOver = () => {
+    let anagrams = this.state.allAnagrams.map(arr => <p key={UUID()}>{String(arr)}</p>)
+
+    return(
+      <div>
+        {anagrams}
+      </div>
+    )
+  }
+
   render() {
     return (
       <div>
@@ -278,6 +356,8 @@ class Game extends Component {
         }
 
         {(this.state.playing === false) ? null : this.playGame()}
+
+        {(this.state.gameOver === false) ? null : this.gameOver()}
       </div>
     )
   }

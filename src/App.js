@@ -19,6 +19,11 @@ class App extends Component {
     }
   }
 
+  componentDidMount(){
+    let myId = localStorage.getItem('id')
+    this.setState({id: myId})
+  }
+
   setId = (id) => {
     this.setState({id: id}, () => {console.log(this.state.id)})
   }

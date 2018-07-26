@@ -14,6 +14,7 @@ class LoginForm extends Component {
   }
 
   handleSubmit = (event) => {
+    console.log("Hi")
     event.preventDefault();
 
     fetch(`http://localhost:3000/api/v1/sessions/`, {
@@ -25,10 +26,12 @@ class LoginForm extends Component {
     })
       .then(res => res.json())
       .then(json => {
+        console.log("fetched");
         this.props.setId(json.id)
         // this.setState({id: json.id}, () => {
         //   console.log(this.state.id)
           localStorage.setItem('token', json.token);
+          localStorage.setItem('id', json.id);
           this.props.history.push("/my-games");
         // })
       })
@@ -47,6 +50,7 @@ class LoginForm extends Component {
             onChange={this.handleChange}
             value={this.state.username}
           />
+        <br />
           <label htmlFor="password">Password</label>
           <input
             type="password"

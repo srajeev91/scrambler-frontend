@@ -1,0 +1,77 @@
+
+.logo {
+  text-align: center;
+}
+
+.logo-left{
+  font-size: 60px;
+  text-align: center;
+  color: #2d6387;
+  position: relative;
+  -webkit-animation-name: leftexample;  /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 4s;  /* Safari 4.0 - 8.0 */
+  -webkit-animation-fill-mode: forwards; /* Safari 4.0 - 8.0 */
+  animation-name: leftexample;
+  animation-duration: 4s;
+  animation-fill-mode: forwards;
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes leftexample {
+    from {left: -600px;}
+    to {left: 0px; color: #2d6387;}
+}
+
+@keyframes leftexample {
+    from {left: -600px;}
+    to {left: 0px; color: rgba(255, 255, 255, 0.6);}
+}
+
+
+.logo-middle{
+  font-size: 60px;
+  text-align: center;
+  color: #2d6387;
+  position: relative;
+  -webkit-animation-name: example;  /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 4s;  /* Safari 4.0 - 8.0 */
+  -webkit-animation-fill-mode: forwards; /* Safari 4.0 - 8.0 */
+  animation-name: example;
+  animation-duration: 4s;
+  animation-fill-mode: forwards;
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes example {
+    from {top: 600px;}
+    to {top: 0px; color: #2d6387;}
+}
+
+@keyframes example {
+    from {top: 600px;}
+    to {top: 0px; color: rgba(255, 255, 255, 0.6);}
+}
+
+.logo-right{
+  font-size: 60px;
+  text-align: center;
+  color: #2d6387;
+  position: relative;
+  -webkit-animation-name: rightexample;  /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 4s;  /* Safari 4.0 - 8.0 */
+  -webkit-animation-fill-mode: forwards; /* Safari 4.0 - 8.0 */
+  animation-name: rightexample;
+  animation-duration: 4s;
+  animation-fill-mode: forwards;
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes rightexample {
+    from {right: -600px;}
+    to {right: 0px; color: #2d6387;}
+}
+
+@keyframes rightexample {
+    from {right: -600px;}
+    to {right: 0px; color: rgba(255, 255, 255, 0.6);}
+}

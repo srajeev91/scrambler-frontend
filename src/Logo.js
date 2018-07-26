@@ -1,9 +1,14 @@
 import React from 'react'
+import './Logo.css'
 
 const Logo = () => {
   return(
-    <div className="logo">
-      <h1>SCRAMBLER</h1>
+    <div>
+      <h1 className="logo">
+        <span className="logo-left">SCR</span>
+        <span className="logo-middle">AMB</span>
+        <span className="logo-right">LER</span>
+      </h1>
     </div>
   )
 }
