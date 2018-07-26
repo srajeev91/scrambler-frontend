@@ -8,7 +8,6 @@ class Game extends Component {
       playing: false,
       startGame: false,
       gameOver: false,
-      words: [],
       gameId: 0,
       wordLength: 4,
       iteration: 0,
@@ -34,12 +33,6 @@ class Game extends Component {
     // this.countDown = this.gameCountDown.bind(this)
   }
 
-  componentDidMount () {
-    fetch('http://localhost:3000/api/v1/words')
-    .then((response) => response.json())
-    .then(data => this.setState({words: data}))
-  }
-
   handleButton = () => {
     console.log(this.props.id)
     fetch('http://localhost:3000/api/v1/games', {
@@ -54,12 +47,12 @@ class Game extends Component {
     .then(response => response.json())
     .then(data => {
       this.setState({
-        gameId: data.id
-      })
+        gameId: data.id,
+        startGame: true,
+        playing: true
+      }, () => {this.getWord()})
 
     })
-
-    this.setState({startGame: true, playing: true}, () => {this.getWord()})
   }
 
   startTimer = () => {
@@ -67,11 +60,14 @@ class Game extends Component {
     if (this.gameInterval === 0) {
       this.gameInterval = setInterval(() => {this.gameCountDown()}, 1000);
     }
+    console.log('startTimer', this.gameInterval)
   }
 
   startWordTimer = () => {
     // if (this.wordInterval === 0) {
+      // clearInterval(this.wordInterval)
       this.wordInterval = setInterval(() => {this.wordCountDown()}, 1000);
+      console.log('startWordTimer',this.wordInterval)
     // }
   }
 
@@ -82,6 +78,7 @@ class Game extends Component {
     });
 
     if (seconds === 0) {
+      console.log('in wordCountDown', this.wordInterval)
       clearInterval(this.wordInterval);
       this.getWord()
     }
@@ -123,12 +120,11 @@ class Game extends Component {
         game_id: Number(this.state.gameId)
       })
     })
-    .then(response => response.json())
-    .then(data => data)
   }
 
   getWord () {
     if (this.state.wordTimer !== 0) {
+      console.log('in get word', this.wordInterval)
       clearInterval(this.wordInterval);
     }
 
@@ -143,7 +139,8 @@ class Game extends Component {
   }
 
   getWordTwo = () => {
-    let allwords = this.state.words
+    let allwords = this.props.words
+
     if (this.state.gameTimer > 0 && this.state.iteration === 1) {
       this.setState({
         wordsOfLength: allwords.filter(wordObj => wordObj.length === this.state.wordLength)
@@ -196,7 +193,9 @@ class Game extends Component {
 
   updateAllAnagrams = () => {
     let currentWordAnagrams = this.state.currentAnagrams.slice(0)
-    if (!currentWordAnagrams.includes(this.state.currentWord) && currentWordAnagrams[0].length===this.state.currentWord.length) {
+    if (currentWordAnagrams.length === 0) {
+      currentWordAnagrams.push(this.state.currentWord)
+    } else if (!currentWordAnagrams.includes(this.state.currentWord) && currentWordAnagrams[0].length===this.state.currentWord.length) {
       currentWordAnagrams.push(this.state.currentWord)
     } else if (!currentWordAnagrams.includes(this.state.currentWord)) {
       currentWordAnagrams = [this.state.currentWord]
@@ -309,23 +308,24 @@ class Game extends Component {
 
   playGame = () => {
     return(
-      <div className="game-timer">
-        <h1>{this.state.gameTimeLeft}</h1>
-        <h3>{this.state.scrambled}</h3>
-        <h4>{this.state.wordTimer}</h4>
+      <div className="game">
+        <h1 className="game-timer">{this.state.gameTimeLeft}</h1>
+        <h3 className="scrambled">{this.state.scrambled}</h3>
+        <h4 className="word-timer">{this.state.wordTimer}</h4>
 
         <p>Enter guesses here:</p>
-        <form onSubmit={this.handleSubmit}>
+        <form className="guess-form" onSubmit={this.handleSubmit}>
           <input type="text" onChange={this.handleChange} value={this.state.playerGuess}/>
+          <br />
           <input type="submit" />
         </form>
 
         <h4>Your guesses:</h4>
-        <ul>
+        <ul className="my-guesses">
           {this.state.allWordGuesses.map(word => <li key={UUID()}>{word}</li>)}
         </ul>
 
-        <h4>Score: {this.state.score}</h4>
+        <h4 className="score">Score: {this.state.score}</h4>
       </div>
     )
   }
@@ -340,11 +340,18 @@ class Game extends Component {
     )
   }
 
+  componentWillUnmount() {
+    console.log('componentWillUnmount', this.gameInterval, this.wordInterval)
+    clearInterval(this.gameInterval);
+    clearInterval(this.wordInterval);
+  }
+
   render() {
     return (
       <div>
-        {(this.state.startGame === true) ? null :
-          <React.Fragment>
+        {(this.props.words.length === 0) ? <h2>LOADING</h2> : null}
+        {(this.state.startGame === true || this.props.words.length === 0) ? null :
+          <div className="instructions">
           <h2>Instructions</h2>
           <p>Try to solve as many anagrams using all the letters displayed</p>
           <p>You will be penalized for guesses that are incorrect or do not use all the letters</p>
@@ -352,7 +359,7 @@ class Game extends Component {
           <p>If you've guessed all the possible anagrams (MUST USE ALL LETTERS), the next word will be displayed and the word timer will be reset to 15 seconds</p>
           <p>The game ends when the game timer reaches 0. Good luck!</p>
           <button onClick={this.handleButton}>Start</button>
-          </React.Fragment>
+          </div>
         }
 
         {(this.state.playing === false) ? null : this.playGame()}

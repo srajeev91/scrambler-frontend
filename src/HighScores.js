@@ -12,16 +12,16 @@ class HighScores extends Component {
     .then(data => {
       this.setState({
         highScores: data
-      }, () => {this.renderScores()})
+      }, () => {console.log('HIGHSCORES')})
     })
   }
 
   renderScores = () => {
-    console.log(this.state.highScores)
     return this.state.highScores.map(obj => (
       <li key={UUID()}>
-        <h4>{this.parseDate(obj.date)}</h4>
+        <h4>{obj.user.username.toUpperCase()}</h4>
         <p>Score: {obj.score}</p>
+        <p>Date played: {this.parseDate(obj.date)}</p>
       </li>
     ))
   }

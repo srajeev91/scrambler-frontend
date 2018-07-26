@@ -15,13 +15,18 @@ class App extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      id: 0
+      id: 0,
+      words: []
     }
   }
 
   componentDidMount(){
     let myId = localStorage.getItem('id')
-    this.setState({id: myId})
+
+    fetch('http://localhost:3000/api/v1/words')
+    .then((response) => response.json())
+    .then(data => this.setState({words: data, id: myId})
+    )
   }
 
   setId = (id) => {
@@ -46,7 +51,7 @@ class App extends Component {
           <Route exact path="/logout" component={LogoutButton} />
           <Route exact path="/my-games" component={() => <MyGames id={this.state.id} />} />
           <Route exact path="/high-scores" component={HighScores} />
-          <Route exact path="/playgame" component={() => <Game id={this.state.id} />} />
+          <Route exact path="/playgame" component={() => <Game id={this.state.id} words={this.state.words} />} />
         </div>
     );
   }
