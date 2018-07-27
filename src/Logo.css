@@ -1,10 +1,11 @@
 
 .logo {
+  font-size: 100px;
   text-align: center;
 }
 
 .logo-left{
-  font-size: 60px;
+
   text-align: center;
   color: #2d6387;
   position: relative;
@@ -29,7 +30,7 @@
 
 
 .logo-middle{
-  font-size: 60px;
+
   text-align: center;
   color: #2d6387;
   position: relative;
@@ -53,7 +54,7 @@
 }
 
 .logo-right{
-  font-size: 60px;
+
   text-align: center;
   color: #2d6387;
   position: relative;

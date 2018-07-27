@@ -25,12 +25,16 @@ class LoginForm extends Component {
     })
       .then(res => res.json())
       .then(json => {
-        this.props.setId(json.id)
+        if(json.id == undefined) {
+          alert('Please enter valid username and password')
+        } else {
+          this.props.setId(json.id)
         // this.setState({id: json.id}, () => {
         //   console.log(this.state.id)
           localStorage.setItem('token', json.token);
           localStorage.setItem('id', json.id);
           this.props.history.push("/my-games");
+        }
         // })
       })
   }
