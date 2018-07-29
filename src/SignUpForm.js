@@ -30,9 +30,14 @@ class SignUpForm extends Component {
       })
   }
 
+  componentWillMount () {
+    document.body.className = 'tinted-image'
+  }
+
   render() {
     return (
       <div className="signup">
+        <h1 className="signup-form">REGISTER</h1>
         <form onSubmit={this.handleSubmit}>
           <label htmlFor="username">Username</label>
           <input

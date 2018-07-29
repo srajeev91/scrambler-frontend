@@ -39,10 +39,19 @@ class LoginForm extends Component {
       })
   }
 
+  componentWillMount(){
+    // document.body.style.backgroundImage = `url('https://www.the-efa.org/wp-content/uploads/2018/01/scrabble-1615793_1920.jpg')`;
+    // document.body.style.backgroundImage = `url('https://s3.envato.com/files/121873343/preview.jpg')`;
+    // document.body.style.backgroundImage = `url('https://i.etsystatic.com/5308878/r/il/919f11/625381037/il_570xN.625381037_384c.jpg')`;
+    document.body.className = 'tinted-image'
+  }
+
   render() {
-    // console.log(this.props)
+    // document.body.style.backgroundImage = `url('https://www.the-efa.org/wp-content/uploads/2018/01/scrabble-1615793_1920.jpg')`;
+
     return (
       <div className="login">
+        <h1 className="login-form">LOGIN</h1>
         <form onSubmit={this.handleSubmit}>
           <label htmlFor="username">Username</label>
           <input

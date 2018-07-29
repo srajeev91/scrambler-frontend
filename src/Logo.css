@@ -25,7 +25,7 @@
 
 @keyframes leftexample {
     from {left: -600px;}
-    to {left: 0px; color: rgba(255, 255, 255, 0.6);}
+    to {left: 0px; color: rgba(255, 255, 255, 0.7);}
 }
 
 
@@ -50,7 +50,7 @@
 
 @keyframes example {
     from {top: 600px;}
-    to {top: 0px; color: rgba(255, 255, 255, 0.6);}
+    to {top: 0px; color: rgba(255, 255, 255, 0.7);}
 }
 
 .logo-right{
@@ -74,5 +74,5 @@
 
 @keyframes rightexample {
     from {right: -600px;}
-    to {right: 0px; color: rgba(255, 255, 255, 0.6);}
+    to {right: 0px; color: rgba(255, 255, 255, 0.7);}
 }

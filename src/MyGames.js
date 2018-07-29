@@ -5,7 +5,10 @@ class MyGames extends Component {
     games: [],
   }
 
+
   componentDidMount() {
+    document.body.className = null;
+
     if (this.props.id !== 0) {
       fetch(
         `http://localhost:3000/api/v1/users/${this.props.id}/games`,

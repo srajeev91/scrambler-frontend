@@ -3,22 +3,35 @@ body {
   padding: 0;
   font-family: sans-serif;
   background: #3D7EAA;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #FFE47A, #3D7EAA);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #FFE47A, #3D7EAA); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  /* background: -webkit-linear-gradient(to right, #FFE47A, #3D7EAA);
+  background: linear-gradient(to right, #FFE47A, #3D7EAA); */
+  background: -webkit-linear-gradient(to right, #97bdc9, #1e5377);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #97bdc9, #1e5377); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
 
+h1 {
+  font-size: 36px;
+}
+
+.tinted-image {
+  background: linear-gradient(
+      rgba(15, 150, 200, 0.3),
+      rgba(15, 150, 200, 0.3)
+  ), url('https://gatewaytoscience.org/wp-content/uploads/2014/10/il_fullxfull_310112483.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
 }
 
 .App {
-  background: #3D7EAA;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #FFE47A, #3D7EAA);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #FFE47A, #3D7EAA); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
 }
 
 .nav {
   display: flex;
   text-align: center;
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.7);
   padding: 10px 0px 10px 0px;
 }
 
@@ -48,16 +61,12 @@ body {
   font-size: 16px;
 }
 
-div.login, div.signup {
-  margin-top: 10px;
-}
-
 .login label {
   margin: 0 20px;
 }
 
 .login input[type="submit"] {
-  margin: 0 20px;
+  margin: 10px 20px;
 }
 
 .signup label {
@@ -77,24 +86,35 @@ div.my-games, div.high-scores {
 }
 
 input[type=text], input[type=password], select {
-    width: 50%;
-    padding: 8px 10px;
-    margin: 0px 10px 20px 0px;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+  width: 40%;
+  padding: 8px 10px;
+  margin: 0px 20px 20px 0px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
 input[type=submit] {
-    width: 70%;
-    background-color: #2d6387;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+  width: 55%;
+  background-color: #2d6387;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.guess-form input[type="text"] {
+  width: 20%;
+  padding: 8px 10px;
+  margin: 0px 20px 20px 0px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  cursor: pointer;
 }
 
 input[type=submit]:hover {
@@ -103,7 +123,7 @@ input[type=submit]:hover {
 }
 
 .guess-form input[type="submit"] {
-  width: 40%;
+  width: 10%;
   background-color: #2d6387;
   color: white;
   padding: 14px 20px;
@@ -119,12 +139,22 @@ input[type=submit]:hover {
 }
 
 div.login, div.signup {
-    width: 50%;
-    text-align: center;
-    margin: 0 auto;
-    border-radius: 10px;
-    background-color: rgba(255, 255, 255, 0.5);
-    padding: 60px 5px;
+  width: 35%;
+  text-align: center;
+  margin: 0 auto;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 0rem 0px 4rem;
+  box-shadow: 3px 3px 20px #000;
+}
+
+h1.login-form, h1.signup-form {
+  font-size: 36px;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 1.5rem;
+  border-radius: 10px 10px 0px 0px;
+  background-color: #2d6387;
+  margin-bottom: 3rem;
 }
 
 .game {
@@ -138,14 +168,20 @@ div.login, div.signup {
 
 .instructions button {
   font-size: 16px;
-  width: 40%;
+  width: 30%;
   background-color: #2d6387;
   color: white;
   padding: 14px 40px;
-  margin: 8px 0;
+  margin: 25px 0;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+}
+
+.instructions p {
+  width: 30%;
+  margin: auto;
+  padding: 10px 0 10px 0;
 }
 
 .instructions button:hover {
