@@ -1,5 +1,10 @@
 import React, { Component } from 'react'
 import UUID from 'uuid'
+import openSocket from 'socket.io-client';
+
+const socket = openSocket('http://localhost:5000');
+
+socket.on("FromAPI", data => console.log(data))
 
 class Game extends Component {
   constructor() {
@@ -350,10 +355,10 @@ class Game extends Component {
   render() {
     return (
       <div className="start">
-        {(this.props.words.length === 0) ? <h2>LOADING</h2> : null}
+        {(this.props.words.length === 0) ? <h2 className="alt-text">LOADING</h2> : null}
         {(this.state.startGame === true || this.props.words.length === 0) ? null :
           <div className="instructions">
-          <h2>Instructions</h2>
+          <h2>INSTRUCTIONS</h2>
           <p>Try to solve as many anagrams using all the letters displayed</p>
           <p>You will be penalized for guesses that are incorrect or do not use all the letters</p>
           <p>You will have 15 seconds to unscramble each word</p>

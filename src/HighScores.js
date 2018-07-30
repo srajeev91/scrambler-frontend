@@ -18,11 +18,11 @@ class HighScores extends Component {
 
   renderScores = () => {
     return this.state.highScores.map(obj => (
-      <li key={UUID()}>
-        <h4>{obj.user.username.toUpperCase()}</h4>
-        <p>Score: {obj.score}</p>
-        <p>Date played: {this.parseDate(obj.date)}</p>
-      </li>
+      <tr key={UUID()}>
+        <td>{obj.user.username.toUpperCase()}</td>
+        <td>{obj.score}</td>
+        <td>{this.parseDate(obj.date)}</td>
+      </tr>
     ))
   }
 
@@ -57,10 +57,15 @@ class HighScores extends Component {
   render() {
     return (
       <div className="high-scores">
-        <h2>High Scores</h2>
-        <ul>
+        <h2>HIGH SCORES</h2>
+        <table className="games-table">
+          <tr>
+            <th>Username</th>
+            <th>Score</th>
+            <th>Date Played</th>
+          </tr>
           {this.renderScores()}
-        </ul>
+        </table>
       </div>
     )
   }
