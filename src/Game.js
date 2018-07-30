@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import UUID from 'uuid'
+import { ActionCable } from 'react-actioncable-provider';
 
 class Game extends Component {
   constructor() {
@@ -31,6 +32,22 @@ class Game extends Component {
     //I don't need to do this since I passed in an arrow function as my callback
     // this.startTimer = this.startTimer.bind(this)
     // this.countDown = this.gameCountDown.bind(this)
+  }
+
+  componentDidMount() {
+    // this.props.appCable.content = this.props.appCable.cable.subscriptions.create({channel: "GameChannel"} , {
+    //   received: (newGame) => {
+    //     console.log(newGame)
+    //     // {content: game: {id: 117, created_at: "2018-07-29T22:30:54.929Z", user_games: Array(1)}}
+    //   }
+    // })
+    // this.props['data-getLineData'](window.location.href.match(/\d+$/)[0])
+    // this.props['data-cableApp'].line = this.props['data-cableApp'].cable.subscriptions.create({channel: "LineChannel", room: window.location.href.match(/\d+$/)[0]}, {
+    //   received: (newLine) => {
+    //     console.log(newLine)
+    //     this.props['data-updateApp'](newLine)
+    //   }
+    // })
   }
 
   handleButton = () => {
@@ -347,9 +364,19 @@ class Game extends Component {
     clearInterval(this.wordInterval);
   }
 
+  handleReceivedGame = response => {
+    console.log(response)
+  };
+
   render() {
+    // console.log(this.props)
     return (
       <div className="start">
+        <ActionCable
+          channel={{ channel: 'GameChannel' }}
+          onReceived={this.handleReceivedGame}
+        />
+      
         {(this.props.words.length === 0) ? <h2>LOADING</h2> : null}
         {(this.state.startGame === true || this.props.words.length === 0) ? null :
           <div className="instructions">

@@ -34,7 +34,7 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.props.AppCable)
+    // console.log(this.props)
     return (
         <div className="App">
           <NavBar />
@@ -51,7 +51,7 @@ class App extends Component {
           <Route exact path="/logout" component={LogoutButton} />
           <Route exact path="/my-games" component={() => <MyGames id={this.state.id} />} />
           <Route exact path="/high-scores" component={HighScores} />
-          <Route exact path="/playgame" component={() => <Game id={this.state.id} words={this.state.words} />} />
+          <Route exact path="/playgame" component={(props) => <Game id={this.state.id} words={this.state.words} />} />
         </div>
     );
   }
