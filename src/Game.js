@@ -283,6 +283,10 @@ class Game extends Component {
   wordValidity = (word) => {
     let correctGuesses = this.state.wordCorrectGuesses.slice(0)
 
+    if (correctGuesses.includes(word)) {
+      return
+    }
+
     if (this.state.currentAnagrams.includes(word) || word === this.state.currentWord) {
       correctGuesses.push(word)
       this.setState({
