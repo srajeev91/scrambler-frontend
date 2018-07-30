@@ -139,7 +139,7 @@ input[type=submit]:hover {
     margin: 0 auto;
 }
 
-div.login, div.signup, div.instructions {
+div.login, div.signup, div.instructions, div.your-guesses {
   width: 35%;
   text-align: center;
   margin: 0 auto;
@@ -183,7 +183,7 @@ h1.login-form, h1.signup-form {
   cursor: pointer;
 }
 
-.instructions p {
+.instructions p, .your-guesses p {
   width: 70%;
   margin: auto;
   padding: 10px 0 10px 0;
@@ -193,13 +193,17 @@ h1.login-form, h1.signup-form {
   background-color: #C18814;
 }
 
-.instructions h2 {
+.instructions h2, .your-guesses h2 {
   font-size: 36px;
   color: rgba(255, 255, 255, 0.8);
   padding: 1.5rem;
   border-radius: 10px 10px 0px 0px;
   background-color: #F3C00F;
   margin-bottom: 3rem;
+}
+
+.your-guesses h4 {
+  font-size: 26px;
 }
 
 .high-scores h2, .my-games h2 {

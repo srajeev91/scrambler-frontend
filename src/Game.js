@@ -343,7 +343,8 @@ class Game extends Component {
     let anagrams = this.state.allAnagrams.map(arr => <p key={UUID()}>{String(arr)}</p>)
 
     return(
-      <div>
+      <div className="your-guesses">
+        <h2>YOUR GUESSES</h2>
         <h4>Score: {this.state.score}</h4>
         {anagrams}
       </div>
