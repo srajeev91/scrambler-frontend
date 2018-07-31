@@ -25,5 +25,10 @@ var io = socket(server);
 
 io.on('connection', (socket) => {
     //console.log('client connected');
-    console.log(socket.id)
+    // console.log(socket.id)
+    socket.on('display_word', word => {
+      socket.broadcast.emit('display_word', {
+        scrambled: word
+      });
+    });
 });

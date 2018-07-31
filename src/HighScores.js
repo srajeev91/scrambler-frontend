@@ -59,12 +59,16 @@ class HighScores extends Component {
       <div className="high-scores">
         <h2>HIGH SCORES</h2>
         <table className="games-table">
+          <thead>
           <tr>
             <th>Username</th>
             <th>Score</th>
             <th>Date Played</th>
           </tr>
+          </thead>
+          <tbody>
           {this.renderScores()}
+          </tbody>
         </table>
       </div>
     )

@@ -4,8 +4,6 @@ import openSocket from 'socket.io-client';
 
 const socket = openSocket('http://localhost:5000');
 
-socket.on("FromAPI", data => console.log(data))
-
 class Game extends Component {
   constructor() {
     super()
@@ -36,6 +34,12 @@ class Game extends Component {
     //I don't need to do this since I passed in an arrow function as my callback
     // this.startTimer = this.startTimer.bind(this)
     // this.countDown = this.gameCountDown.bind(this)
+  }
+
+  componentWillMount() {
+    socket.on('display_word', (word) => {
+      scrambled: word
+    })
   }
 
   handleButton = () => {
@@ -108,9 +112,7 @@ class Game extends Component {
       playing: false,
       gameOver: true,
     })
-    console.log('do post requests for score, allAnagrams, allWords??')
-    console.log('set state for gameover:true, playing: false')
-    console.log('if gameover is true, render component that goes through all anagrams')
+    // console.log('do post requests for allAnagrams, allWords??')
     console.log(this.state)
     this.postScore()
   }

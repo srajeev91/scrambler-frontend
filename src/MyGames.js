@@ -78,10 +78,13 @@ class MyGames extends Component {
           <h2>MY GAMES</h2>
           { (this.state.games.length === 0) ? <h3 className="alt-text">You do not have any games yet!</h3> :
             <table className="games-table">
+              <thead>
               <tr>
                 <th>Date Played</th>
                 <th>Score</th>
               </tr>
+              </thead>
+              <tbody>
               {mygamearray.map(
                 game => (
                   // <li key={game.game_id}>
@@ -93,7 +96,9 @@ class MyGames extends Component {
                     <td>{game.score}</td>
                   </tr>
                 )
-              )}</table> }
+              )}
+              </tbody>
+            </table> }
         </div>
         // : <h3>Sign Up or Log In</h3> }
     )
