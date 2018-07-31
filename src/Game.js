@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import UUID from 'uuid'
+import { ActionCable } from 'react-actioncable-provider'
 
 class Game extends Component {
   constructor() {
@@ -46,13 +47,20 @@ class Game extends Component {
     })
     .then(response => response.json())
     .then(data => {
-      this.setState({
-        gameId: data.id,
-        startGame: true,
-        playing: true
-      }, () => {this.getWord()})
+      // this.setState({
+      //   gameId: data.id,
+      // }, () => {this.handleReceived()})
 
     })
+  }
+
+  handleReceived = (event) => {
+    alert('we got here')
+    this.setState({
+      gameId: event.content.game.id,
+      startGame: true,
+      playing: true
+    }, () => {this.getWord()})
   }
 
   startTimer = () => {
@@ -120,7 +128,20 @@ class Game extends Component {
         game_id: Number(this.state.gameId)
       })
     })
+    // this.patchUserGames()
   }
+
+  // patchGames = () => {
+  //   fetch('http://localhost:3000/api/v1/games', {
+  //     method: 'PATCH',
+  //     headers: {'Content-Type': 'application/json'},
+  //     body: JSON.stringify({
+  //       user_id: Number(this.props.id),
+  //       score: 0,
+  //       date: String(new Date())
+  //     })
+  //   })
+  // }
 
   getWord () {
     if (this.state.wordTimer !== 0) {
@@ -350,6 +371,7 @@ class Game extends Component {
   render() {
     return (
       <div className="start">
+        <ActionCable channel={{ channel: 'GameChannel' }} onReceived={this.handleReceived}/>
         {(this.props.words.length === 0) ? <h2>LOADING</h2> : null}
         {(this.state.startGame === true || this.props.words.length === 0) ? null :
           <div className="instructions">
