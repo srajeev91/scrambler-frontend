@@ -75,15 +75,26 @@ class MyGames extends Component {
     return (
       // {(Adapter.isLoggedIn()) ?
         <div className="my-games">
-          <h2>My Games</h2>
-          { (this.state.games.length === 0) ? <h3>You do not have any games yet!</h3> : <ul>{mygamearray.map(
-            game => (
-              <li key={game.game_id}>
-                <h4>{this.parseDate(game.date)}</h4>
-                <p>Score: {game.score}</p>
-              </li>
-            )
-          )}</ul> }
+          <h2>MY GAMES</h2>
+          { (this.state.games.length === 0) ? <h3 className="alt-text">You do not have any games yet!</h3> :
+            <table className="games-table">
+              <thead>
+              <tr>
+                <th>Date Played</th>
+                <th>Score</th>
+              </tr>
+              </thead>
+              <tbody>
+                {mygamearray.map(
+                  game => (
+                    <tr key={game.game_id}>
+                      <td>{this.parseDate(game.date)}</td>
+                      <td>{game.score}</td>
+                    </tr>
+                  )
+                )}
+              </tbody>
+              </table> }
         </div>
         // : <h3>Sign Up or Log In</h3> }
     )

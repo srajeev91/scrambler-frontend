@@ -35,7 +35,7 @@ class Game extends Component {
   }
 
   handleButton = () => {
-    console.log(this.props.id)
+    // console.log(this.props.id)
     fetch('http://localhost:3000/api/v1/games', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
@@ -47,17 +47,17 @@ class Game extends Component {
     })
     .then(response => response.json())
     .then(data => {
-      // this.setState({
-      //   gameId: data.id,
-      // }, () => {this.handleReceived()})
+      this.setState({
+        gameId: data.id,
+      }, () => {this.handleReceived()})
 
     })
   }
 
-  handleReceived = (event) => {
+  handleReceived = () => {
     alert('we got here')
     this.setState({
-      gameId: event.content.game.id,
+      gameId: this.state.gameId,
       startGame: true,
       playing: true
     }, () => {this.getWord()})
@@ -111,9 +111,7 @@ class Game extends Component {
       playing: false,
       gameOver: true,
     })
-    console.log('do post requests for score, allAnagrams, allWords??')
-    console.log('set state for gameover:true, playing: false')
-    console.log('if gameover is true, render component that goes through all anagrams')
+    // console.log('do post requests for score, allAnagrams, allWords??')
     console.log(this.state)
     this.postScore()
   }
@@ -157,6 +155,8 @@ class Game extends Component {
     } else {
       this.setState({iteration: this.state.iteration + 1}, () => {this.getWordTwo()})
     }
+
+    fetch(`http://localhost:3000/api/v1/user_games/${this.state.gameId}`).then(res => res.json()).then(data => console.log('what im getting from usergame', data))
   }
 
   getWordTwo = () => {
@@ -355,7 +355,8 @@ class Game extends Component {
     let anagrams = this.state.allAnagrams.map(arr => <p key={UUID()}>{String(arr)}</p>)
 
     return(
-      <div>
+      <div className="your-guesses">
+        <h2>YOUR GUESSES</h2>
         <h4>Score: {this.state.score}</h4>
         {anagrams}
       </div>
@@ -369,13 +370,14 @@ class Game extends Component {
   }
 
   render() {
+    // console.log(this.state.gameId)
     return (
       <div className="start">
         <ActionCable channel={{ channel: 'GameChannel' }} onReceived={this.handleReceived}/>
-        {(this.props.words.length === 0) ? <h2>LOADING</h2> : null}
+        {(this.props.words.length === 0) ?<h2 className="alt-text">LOADING</h2> : null}
         {(this.state.startGame === true || this.props.words.length === 0) ? null :
           <div className="instructions">
-          <h2>Instructions</h2>
+          <h2>INSTRUCTIONS</h2>
           <p>Try to solve as many anagrams using all the letters displayed</p>
           <p>You will be penalized for guesses that are incorrect or do not use all the letters</p>
           <p>You will have 15 seconds to unscramble each word</p>

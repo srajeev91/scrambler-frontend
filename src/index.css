@@ -5,8 +5,8 @@ body {
   background: #3D7EAA;  /* fallback for old browsers */
   /* background: -webkit-linear-gradient(to right, #FFE47A, #3D7EAA);
   background: linear-gradient(to right, #FFE47A, #3D7EAA); */
-  background: -webkit-linear-gradient(to right, #97bdc9, #1e5377);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #97bdc9, #1e5377); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: -webkit-linear-gradient(to right, #BEE3E8, #E6B109);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #BEE3E8, #E6B109); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 h1 {
@@ -15,8 +15,8 @@ h1 {
 
 .tinted-image {
   background: linear-gradient(
-      rgba(15, 150, 200, 0.3),
-      rgba(15, 150, 200, 0.3)
+      rgba(243, 192, 15, 0.3),
+      rgba(243, 192, 15, 0.3)
   ), url('https://gatewaytoscience.org/wp-content/uploads/2014/10/il_fullxfull_310112483.jpg');
   background-repeat: no-repeat;
   background-size: cover;
@@ -31,7 +31,7 @@ h1 {
 .nav {
   display: flex;
   text-align: center;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.85);
   padding: 10px 0px 10px 0px;
 }
 
@@ -39,16 +39,16 @@ h1 {
   flex: 1;
   padding: 10px;
   margin: 5px 15px;
-  border: 1px solid #2d6387;
+  border: 1px solid #F3C00F;
   border-radius: 10px;
   text-decoration: none;
-  color: #2d6387;
+  color: #F3C00F;
   font-size: 16px;
   font-weight: bold;
 }
 
 .nav a:hover, .selected {
-  background: #2d6387;
+  background: #F3C00F;
   color: #fff !important;
 }
 
@@ -96,8 +96,9 @@ input[type=text], input[type=password], select {
 }
 
 input[type=submit] {
+  font-size: 20px;
   width: 55%;
-  background-color: #2d6387;
+  background-color: #F3C00F;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -118,13 +119,13 @@ input[type=submit] {
 }
 
 input[type=submit]:hover {
-    background-color: #3D7EAA;
+    background-color: #C18814;
     /* margin: 0 auto; */
 }
 
 .guess-form input[type="submit"] {
   width: 10%;
-  background-color: #2d6387;
+  background-color: #F3C00F;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -134,11 +135,10 @@ input[type=submit]:hover {
 }
 
 .guess-form input[type="submit"]:hover {
-    background-color: #3D7EAA;
-    margin: 0 auto;
+    background-color: #C18814;
 }
 
-div.login, div.signup {
+div.login, div.signup, div.instructions, div.your-guesses {
   width: 35%;
   text-align: center;
   margin: 0 auto;
@@ -153,7 +153,7 @@ h1.login-form, h1.signup-form {
   color: rgba(255, 255, 255, 0.8);
   padding: 1.5rem;
   border-radius: 10px 10px 0px 0px;
-  background-color: #2d6387;
+  background-color: #F3C00F;
   margin-bottom: 3rem;
 }
 
@@ -166,24 +166,101 @@ h1.login-form, h1.signup-form {
   padding: 0 20px 0 20px;
 }
 
+.start div {
+  margin-bottom: 50px;
+}
+
 .instructions button {
-  font-size: 16px;
+  font-size: 20px;
   width: 30%;
-  background-color: #2d6387;
+  background-color: #F3C00F;
   color: white;
-  padding: 14px 40px;
-  margin: 25px 0;
+  padding: 14px;
+  margin: 25px 0 0 0;
   border: none;
   border-radius: 4px;
   cursor: pointer;
 }
 
-.instructions p {
-  width: 30%;
+.instructions p, .your-guesses p {
+  width: 70%;
   margin: auto;
   padding: 10px 0 10px 0;
+  color: #706d63;
 }
 
 .instructions button:hover {
-  background-color: #3D7EAA;
+  background-color: #C18814;
+}
+
+.instructions h2, .your-guesses h2 {
+  font-size: 36px;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 1.5rem;
+  border-radius: 10px 10px 0px 0px;
+  background-color: #F3C00F;
+  margin-bottom: 3rem;
+}
+
+.your-guesses h4 {
+  font-size: 26px;
+
+}
+
+.your-guesses {
+  color: #706d63;
+}
+
+.high-scores h2, .my-games h2 {
+  font-size: 38px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.games-table {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    text-align: center;
+    /* border-collapse: separate; */
+    width: 50%;
+    margin: 0 auto;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    background-color: #ddd;
+    box-shadow: 1px 5px 20px #000;
+    margin-bottom: 50px;
+    padding: 0 0 10px 0;
+}
+
+.games-table td, .games-table th {
+  /* width: 50%; */
+  padding: 10px 8px 8px 8px;
+}
+
+.games-table td {color: #706d63;}
+
+.games-table tr {background-color: #f2f2f2;}
+
+.games-table tr:hover {background-color: #ddd;}
+
+.games-table th {
+  text-align: center;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  background-color: #F3C00F;
+  color: white;
+  font-size: 26px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  text-shadow: 2px 2px 5px #212121;
+}
+
+.alt-text {
+  font-size: 26px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.boldme {
+  font-weight: 600;
 }
