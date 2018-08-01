@@ -26,17 +26,14 @@ class Game extends Component {
       allGuesses: [],
       allWordGuesses: [],
       wordCorrectGuesses: [],
-      userGameId: 0
+      userGameId: 0,
+      wordId: 0
     }
     this.gameInterval = 0;
     this.wordInterval = 0;
     //I don't need to do this since I passed in an arrow function as my callback
     // this.startTimer = this.startTimer.bind(this)
     // this.countDown = this.gameCountDown.bind(this)
-  }
-
-  componentDidMount() {
-    console.log('TRIGGERED')
   }
 
   handleButton = () => {
@@ -59,7 +56,7 @@ class Game extends Component {
   }
 
   handleReceived = (event) => {
-    alert('we got here')
+    // alert('we got here')
     this.setState({
       gameId: event.content.game.id,
       startGame: true,
@@ -220,13 +217,28 @@ class Game extends Component {
       allGuesses: gameGuesses,
       wordCorrectGuesses: [],
       allWordGuesses: [],
-      currentWord: this.state.wordsOfLength[Math.floor(Math.random() * this.state.wordsOfLength.length)].word
-    }, () => {this.setScramble()})
+      currentWord: this.state.wordsOfLength[Math.floor(Math.random() * this.state.wordsOfLength.length)]
+    }, () => {console.log('setWord', this.state.currentWord);this.setScramble()})
+  }
+
+  wordFetch = () => {
+    fetch(`http://localhost:3000/api/v1/words/${this.state.currentWord.id}`)
+    .then((response) => response.json())
+    .then(data => {
+      // console.log(data)
+    })
+  }
+
+  handleWord = (event) => {
+    this.setState({
+      currentWord: event
+    }, () => {console.log('getting hit at handleword', this.state.currentWord)})
   }
 
   setScramble = () => {
+    this.wordFetch()
     let wordsarray = this.state.allWords.slice(0)
-    wordsarray.push(this.state.currentWord)
+    wordsarray.push(this.state.currentWord.word)
 
     this.setState({
       allWords: wordsarray,
@@ -236,14 +248,14 @@ class Game extends Component {
   fetchAnagrams = () => {
 
 
-    fetch(`https://danielthepope-countdown-v1.p.mashape.com/solve/${this.state.currentWord}`, {
+    fetch(`https://danielthepope-countdown-v1.p.mashape.com/solve/${this.state.currentWord.word}`, {
       method: 'GET',
       headers: {"X-Mashape-Key": "3XF6f6Tv0qmshjUbmH9AGCF0avHCp1QKdsxjsnW60gPqAQQWUK",
     "Accept": "application/json"}
     }).then(response => response.json())
     .then(
       data => this.setState({
-        scrambled: this.randomize(this.state.currentWord),
+        scrambled: this.randomize(this.state.currentWord.word),
         currentAnagrams: data.map(wordObj => wordObj.word.toLowerCase())
       }, () => {
         this.updateAllAnagrams()
@@ -255,11 +267,11 @@ class Game extends Component {
   updateAllAnagrams = () => {
     let currentWordAnagrams = this.state.currentAnagrams.slice(0)
     if (currentWordAnagrams.length === 0) {
-      currentWordAnagrams.push(this.state.currentWord)
-    } else if (!currentWordAnagrams.includes(this.state.currentWord) && currentWordAnagrams[0].length===this.state.currentWord.length) {
-      currentWordAnagrams.push(this.state.currentWord)
-    } else if (!currentWordAnagrams.includes(this.state.currentWord)) {
-      currentWordAnagrams = [this.state.currentWord]
+      currentWordAnagrams.push(this.state.currentWord.word)
+    } else if (!currentWordAnagrams.includes(this.state.currentWord.word) && currentWordAnagrams[0].length===this.state.currentWord.word.length) {
+      currentWordAnagrams.push(this.state.currentWord.word)
+    } else if (!currentWordAnagrams.includes(this.state.currentWord.word)) {
+      currentWordAnagrams = [this.state.currentWord.word]
     }
 
     let newWordTimer = 0
@@ -339,7 +351,7 @@ class Game extends Component {
   wordValidity = (word) => {
     let correctGuesses = this.state.wordCorrectGuesses.slice(0)
 
-    if (this.state.currentAnagrams.includes(word) || word === this.state.currentWord) {
+    if (this.state.currentAnagrams.includes(word) || word === this.state.currentWord.word) {
       correctGuesses.push(word)
       this.setState({
         wordCorrectGuesses: correctGuesses
@@ -413,10 +425,12 @@ class Game extends Component {
   }
 
   render() {
+    // console.log(this.state.wordsOfLength[Math.floor(Math.random() * this.state.wordsOfLength.length)])
     // console.log('MYID', this.props.id)
     return (
       <div className="start">
         <ActionCable channel={{ channel: 'GameChannel' }} onReceived={this.handleReceived}/>
+        <ActionCable channel={{ channel: 'WordChannel' }} onReceived={this.handleWord}/>
         {(this.props.words.length === 0) ?<h2 className="alt-text">LOADING</h2> : null}
         {(this.state.startGame === true || this.props.words.length === 0) ? null :
           <div className="instructions">
