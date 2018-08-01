@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 import UUID from 'uuid'
 
+const IP = `192.168.6.192`
+
 class HighScores extends Component {
   state = {
     highScores: []
   }
 
   componentDidMount() {
-    fetch('http://localhost:3000/api/v1/highscores')
+    fetch(`http://${IP}:3000/api/v1/highscores`)
     .then((response) => response.json())
     .then(data => {
       this.setState({

@@ -207,7 +207,7 @@ h1.login-form, h1.signup-form {
 
 .instructions h2, .your-words h2 {
   margin-top: 0px;
-  font-size: 36px;
+  font-size: 3vw;
   color: rgba(255, 255, 255, 0.8);
   padding: 1.5rem;
   border-radius: 10px 10px 0px 0px;

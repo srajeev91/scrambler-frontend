@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+const IP = `192.168.6.192`
+
 class LoginForm extends Component {
   state = {
     username: "",
@@ -16,7 +18,7 @@ class LoginForm extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
 
-    fetch(`http://localhost:3000/api/v1/sessions/`, {
+    fetch(`http://${IP}:3000/api/v1/sessions/`, {
       method: 'POST',
       headers: {
         "Content-Type": 'application/json'

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import UUID from 'uuid'
 
+const IP = `192.168.6.192`
+
 class MyGames extends Component {
   state = {
     games: [],
@@ -12,7 +14,7 @@ class MyGames extends Component {
 
     if (this.props.id !== 0) {
       fetch(
-        `http://localhost:3000/api/v1/users/${this.props.id}/games`,
+        `http://${IP}:3000/api/v1/users/${this.props.id}/games`,
         {
           headers: {
             "Content-Type": "application/json",

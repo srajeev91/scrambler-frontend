@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+const IP = `192.168.6.192`
+
 class SignUpForm extends Component {
   state = {
     username: "",
@@ -15,7 +17,7 @@ class SignUpForm extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
 
-    fetch(`http://localhost:3000/api/v1/users/`, {
+    fetch(`http://${IP}:3000/api/v1/users/`, {
       method: 'POST',
       headers: {
         "Content-Type": 'application/json'

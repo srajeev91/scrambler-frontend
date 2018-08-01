@@ -6,6 +6,8 @@ import App from './App';
 import { ActionCableProvider } from 'react-actioncable-provider'
 import registerServiceWorker from './registerServiceWorker';
 
+const IP = `192.168.6.192`
+
 // console.log('actionCable', actionCable)
 
 // const AppCable = {}
@@ -15,4 +17,4 @@ import registerServiceWorker from './registerServiceWorker';
 // console.log('AppCable', AppCable)
 
 
-ReactDOM.render(<ActionCableProvider url={'ws://localhost:3000/cable'}><Router><App/></Router></ActionCableProvider>, document.getElementById('root'));
+ReactDOM.render(<ActionCableProvider url={`ws://${IP}:3000/cable`}><Router><App/></Router></ActionCableProvider>, document.getElementById('root'));

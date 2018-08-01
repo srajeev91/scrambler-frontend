@@ -2,6 +2,13 @@ import React, { Component } from 'react'
 import UUID from 'uuid'
 import { ActionCable } from 'react-actioncable-provider'
 
+const IP = `192.168.6.192`
+// const user_game_url = `http://localhost:3000/api/v1/user_games/`
+// const game_url = `http://localhost:3000/api/v1/games`
+// const post_score_url = `http://localhost:3000/api/v1/user_games/${this.state.userGameId}`
+
+
+
 class Game extends Component {
   constructor() {
     super()
@@ -38,7 +45,8 @@ class Game extends Component {
 
   handleButton = () => {
     // console.log(this.props.id)
-    fetch('http://localhost:3000/api/v1/games', {
+    // fetch('http://localhost:3000/api/v1/games', {
+    fetch(`http://${IP}:3000/api/v1/games`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
@@ -69,7 +77,8 @@ class Game extends Component {
 
   userGameExistence = () => {
     let usg
-    fetch(`http://localhost:3000/api/v1/user_games/`)
+    // fetch(`http://localhost:3000/api/v1/user_games/`)
+    fetch(`http://${IP}:3000/api/v1/user_games/`)
     .then(res => res.json())
     .then(data => {
       // console.log( "from backend", Number(data[data.length-1].user_id));
@@ -86,7 +95,8 @@ class Game extends Component {
   }
 
   createUserGame = () => {
-    fetch(`http://localhost:3000/api/v1/user_games/`, {
+    // fetch(`http://localhost:3000/api/v1/user_games/`, {
+    fetch(`http://${IP}:3000/api/v1/user_games/`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
@@ -157,7 +167,8 @@ class Game extends Component {
   }
 
   postScore = () => {
-    fetch(`http://localhost:3000/api/v1/user_games/${this.state.userGameId}`, {
+    // fetch(`http://localhost:3000/api/v1/user_games/${this.state.userGameId}`, {
+    fetch(`http://${IP}:3000/api/v1/user_games/${this.state.userGameId}`, {
       method: 'PATCH',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
@@ -227,7 +238,8 @@ class Game extends Component {
   wordFetch = () => {
 
     if (this.state.currentWord.id !== undefined) {
-      fetch(`http://localhost:3000/api/v1/words/${this.state.currentWord.id}`)
+      // fetch(`http://localhost:3000/api/v1/words/${this.state.currentWord.id}`)
+      fetch(`http://${IP}:3000/api/v1/words/${this.state.currentWord.id}`)
       .then((response) => response.json())
       .then(data => {
         // console.log(data)

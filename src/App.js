@@ -11,6 +11,9 @@ import Home from './Home'
 import Logo from './Logo'
 import LogoutButton from './LogoutButton'
 
+const words_url = `http://localhost:3000/api/v1/words`
+const IP = `192.168.6.192`
+
 class App extends Component {
   constructor (props) {
     super(props)
@@ -23,7 +26,8 @@ class App extends Component {
   componentDidMount(){
     let myId = localStorage.getItem('id')
 
-    fetch('http://localhost:3000/api/v1/words')
+    // fetch('http://localhost:3000/api/v1/words')
+    fetch('http://192.168.6.192:3000/api/v1/words')
     .then((response) => response.json())
     .then(data => this.setState({words: data, id: myId})
     )
