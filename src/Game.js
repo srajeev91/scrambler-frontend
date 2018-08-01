@@ -113,6 +113,7 @@ class Game extends Component {
   startWordTimer = () => {
     // if (this.wordInterval === 0) {
       // clearInterval(this.wordInterval)
+      clearInterval(this.wordInterval);
       this.wordInterval = setInterval(() => {this.wordCountDown()}, 1000);
       console.log('startWordTimer',this.wordInterval)
     // }
@@ -165,6 +166,8 @@ class Game extends Component {
         game_id: Number(this.state.gameId)
       })
     })
+
+    setTimeout(()=> {this.props.history.push("/high-scores");}, 10000)
     // this.patchUserGames()
   }
 
@@ -218,21 +221,25 @@ class Game extends Component {
       wordCorrectGuesses: [],
       allWordGuesses: [],
       currentWord: this.state.wordsOfLength[Math.floor(Math.random() * this.state.wordsOfLength.length)]
-    }, () => {console.log('setWord', this.state.currentWord);this.setScramble()})
+    }, () => {console.log('setWord', this.state.currentWord);this.wordFetch()})
   }
 
   wordFetch = () => {
-    fetch(`http://localhost:3000/api/v1/words/${this.state.currentWord.id}`)
-    .then((response) => response.json())
-    .then(data => {
-      // console.log(data)
-    })
+
+    if (this.state.currentWord.id !== undefined) {
+      fetch(`http://localhost:3000/api/v1/words/${this.state.currentWord.id}`)
+      .then((response) => response.json())
+      .then(data => {
+        // console.log(data)
+      })
+    }
   }
 
   handleWord = (event) => {
+    // debugger;
     this.setState({
       currentWord: event
-    }, () => {console.log('getting hit at handleword', this.state.currentWord)})
+    }, () => {console.log('getting hit at handleword', this.state.currentWord); this.setScramble()})
   }
 
   setScramble = () => {
@@ -383,15 +390,18 @@ class Game extends Component {
     return(
       <div className="game">
         <h1 className="game-timer">{this.state.gameTimeLeft}</h1>
-        <h3 className="scrambled">{this.state.scrambled}</h3>
-        <h4 className="word-timer">{this.state.wordTimer}</h4>
+        <h4 className="score">Score: {this.state.score}</h4>
+        <div className="guess-form">
+          <h3 className="scrambled">{this.state.scrambled}</h3>
+          <h4 className="word-timer">{this.state.wordTimer}</h4>
 
-        <p>Enter guesses here:</p>
-        <form className="guess-form" onSubmit={this.handleSubmit}>
-          <input type="text" onChange={this.handleChange} value={this.state.playerGuess}/>
-          <br />
-          <input type="submit" />
-        </form>
+          <form onSubmit={this.handleSubmit}>
+            <p>Enter guesses here:</p>
+            <input type="text" onChange={this.handleChange} value={this.state.playerGuess}/>
+            <br />
+            <input type="submit" />
+          </form>
+        </div>
 
 
         <div className="my-guesses">
@@ -401,7 +411,6 @@ class Game extends Component {
           </div>
         </div>
 
-        <h4 className="score">Score: {this.state.score}</h4>
       </div>
     )
   }
@@ -438,7 +447,8 @@ class Game extends Component {
           <p>Try to solve as many anagrams using all the letters displayed</p>
           <p>You will be penalized for guesses that are incorrect or do not use all the letters</p>
           <p>You will have 15 seconds to unscramble each word</p>
-          <p>If you've guessed all the possible anagrams (MUST USE ALL LETTERS), the next word will be displayed and the word timer will be reset to 15 seconds</p>
+          <p>Your opponent is unscrambling the same word. Solve it first to get the most points</p>
+          <p>If you've guessed all the possible anagrams (MUST USE ALL LETTERS), the next word will be displayed for both players and the word timer will be reset to 15 seconds</p>
           <p>The game ends when the game timer reaches 0. Good luck!</p>
           <button onClick={this.handleButton}>Start</button>
           </div>

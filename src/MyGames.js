@@ -66,11 +66,19 @@ class MyGames extends Component {
   }
 
 
-  render() {
+  render = () => {
+    let myid = Number(this.props.id)
 
     let usergamesarray = this.state.games.slice(0).reverse().map(game => game.user_games)
-    let mygamearrayofarrays = usergamesarray.filter(ug => Number(ug[0].user_id) === Number(this.props.id))
-    let mygamearray = [].concat.apply([], mygamearrayofarrays)
+    usergamesarray = [].concat.apply([], usergamesarray)
+    // console.log('usergamesarray', usergamesarray)
+
+
+    let mygamearray = usergamesarray.filter(ug_a => Number(ug_a.user_id) === myid )
+
+
+    // let mygamearray = [].concat.apply([], mygamearray)
+    // console.log('mygamearray', mygamearray)
 
 
     return (
