@@ -138,7 +138,7 @@ input[type=submit]:hover {
     background-color: #C18814;
 }
 
-div.login, div.signup, div.instructions, div.your-guesses {
+div.login, div.signup, div.instructions, div.your-words {
   width: 35%;
   text-align: center;
   margin: 0 auto;
@@ -182,7 +182,7 @@ h1.login-form, h1.signup-form {
   cursor: pointer;
 }
 
-.instructions p, .your-guesses p {
+.instructions p, .your-words p, .my-guesses p {
   width: 70%;
   margin: auto;
   padding: 10px 0 10px 0;
@@ -193,7 +193,8 @@ h1.login-form, h1.signup-form {
   background-color: #C18814;
 }
 
-.instructions h2, .your-guesses h2 {
+.instructions h2, .your-words h2 {
+  margin-top: 0px;
   font-size: 36px;
   color: rgba(255, 255, 255, 0.8);
   padding: 1.5rem;
@@ -202,12 +203,12 @@ h1.login-form, h1.signup-form {
   margin-bottom: 3rem;
 }
 
-.your-guesses h4 {
+.your-words h4 {
   font-size: 26px;
 
 }
 
-.your-guesses {
+.your-words, .my-guesses {
   color: #706d63;
 }
 
@@ -263,4 +264,42 @@ h1.login-form, h1.signup-form {
 
 .boldme {
   font-weight: 600;
+}
+
+div.my-guesses {
+  width: 35%;
+  height: 200px;
+  text-align: center;
+  margin: 0 auto;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 0rem 0px 4rem;
+  box-shadow: 3px 3px 20px #000;
+  /* overflow: scroll; */
+}
+
+.my-guesses h2 {
+  margin-top: 0px;
+  font-size: 36px;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 1.5rem;
+  border-radius: 10px 10px 0px 0px;
+  background-color: #F3C00F;
+}
+
+div.scroll {
+  height: 120px;
+  margin: 0 5px;
+  /* position: fixed; */
+  overflow-y: scroll;
+}
+
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 10px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, .5);
+  -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
 }

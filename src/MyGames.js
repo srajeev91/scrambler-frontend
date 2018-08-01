@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import UUID from 'uuid'
 
 class MyGames extends Component {
   state = {
@@ -87,7 +88,7 @@ class MyGames extends Component {
               <tbody>
                 {mygamearray.map(
                   game => (
-                    <tr key={game.game_id}>
+                    <tr key={UUID()}>
                       <td>{this.parseDate(game.date)}</td>
                       <td>{game.score}</td>
                     </tr>

@@ -25,13 +25,18 @@ class Game extends Component {
       playerGuess: "",
       allGuesses: [],
       allWordGuesses: [],
-      wordCorrectGuesses: []
+      wordCorrectGuesses: [],
+      userGameId: 0
     }
     this.gameInterval = 0;
     this.wordInterval = 0;
     //I don't need to do this since I passed in an arrow function as my callback
     // this.startTimer = this.startTimer.bind(this)
     // this.countDown = this.gameCountDown.bind(this)
+  }
+
+  componentDidMount() {
+    console.log('TRIGGERED')
   }
 
   handleButton = () => {
@@ -47,20 +52,57 @@ class Game extends Component {
     })
     .then(response => response.json())
     .then(data => {
-      this.setState({
-        gameId: data.id,
-      }, () => {this.handleReceived()})
-
+      // this.setState({
+      //   gameId: data.id,
+      // }, () => {this.handleReceived()})
     })
   }
 
-  handleReceived = () => {
+  handleReceived = (event) => {
     alert('we got here')
     this.setState({
-      gameId: this.state.gameId,
+      gameId: event.content.game.id,
       startGame: true,
       playing: true
-    }, () => {this.getWord()})
+    }, () => {
+      this.getWord()
+      setTimeout(this.userGameExistence, 5000)
+    })
+  }
+
+  userGameExistence = () => {
+    let usg
+    fetch(`http://localhost:3000/api/v1/user_games/`)
+    .then(res => res.json())
+    .then(data => {
+      // console.log( "from backend", Number(data[data.length-1].user_id));
+      // console.log( "from frontend", Number(this.props.id));
+      // if (Number(data[data.length-1].user_id) !== Number(this.props.id)) {
+      usg = data.filter(u_g => Number(u_g.user_id)===Number(this.props.id) && Number(u_g.game_id)===Number(this.state.gameId));
+
+      if (usg.length === 0) {
+        this.createUserGame()
+      } else {
+        this.setState({userGameId: data[data.length-1].id})
+      }
+    })
+  }
+
+  createUserGame = () => {
+    fetch(`http://localhost:3000/api/v1/user_games/`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        date: String(new Date()),
+        score: this.state.score,
+        user_id: Number(this.props.id),
+        game_id: Number(this.state.gameId)
+      })
+    })
+    .then(response => response.json())
+    .then(data => {
+      this.setState({userGameId: data.id})
+    })
   }
 
   startTimer = () => {
@@ -117,7 +159,7 @@ class Game extends Component {
   }
 
   postScore = () => {
-    fetch(`http://localhost:3000/api/v1/user_games/${this.state.gameId}`, {
+    fetch(`http://localhost:3000/api/v1/user_games/${this.state.userGameId}`, {
       method: 'PATCH',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
@@ -155,8 +197,6 @@ class Game extends Component {
     } else {
       this.setState({iteration: this.state.iteration + 1}, () => {this.getWordTwo()})
     }
-
-    fetch(`http://localhost:3000/api/v1/user_games/${this.state.gameId}`).then(res => res.json()).then(data => console.log('what im getting from usergame', data))
   }
 
   getWordTwo = () => {
@@ -341,10 +381,13 @@ class Game extends Component {
           <input type="submit" />
         </form>
 
-        <h4>Your guesses:</h4>
-        <ul className="my-guesses">
-          {this.state.allWordGuesses.map(word => <li key={UUID()}>{word}</li>)}
-        </ul>
+
+        <div className="my-guesses">
+          <h2>Your guesses:</h2>
+          <div className="scroll">
+            {this.state.allWordGuesses.map(word => <p key={UUID()}>{word}</p>)}
+          </div>
+        </div>
 
         <h4 className="score">Score: {this.state.score}</h4>
       </div>
@@ -355,8 +398,8 @@ class Game extends Component {
     let anagrams = this.state.allAnagrams.map(arr => <p key={UUID()}>{String(arr)}</p>)
 
     return(
-      <div className="your-guesses">
-        <h2>YOUR GUESSES</h2>
+      <div className="your-words">
+        <h2>YOUR WORDS</h2>
         <h4>Score: {this.state.score}</h4>
         {anagrams}
       </div>
@@ -370,7 +413,7 @@ class Game extends Component {
   }
 
   render() {
-    // console.log(this.state.gameId)
+    // console.log('MYID', this.props.id)
     return (
       <div className="start">
         <ActionCable channel={{ channel: 'GameChannel' }} onReceived={this.handleReceived}/>
