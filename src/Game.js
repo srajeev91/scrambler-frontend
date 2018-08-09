@@ -178,9 +178,8 @@ class Game extends Component {
         game_id: Number(this.state.gameId)
       })
     })
-    //
-    // setTimeout(()=> {this.props.history.push("/high-scores");}, 10000)
-    // this.patchUserGames()
+
+    setTimeout(()=> {this.props.history.push("/high-scores");}, 10000)
   }
 
   // patchGames = () => {
