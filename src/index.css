@@ -2,4 +2,344 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  background: #3D7EAA;  /* fallback for old browsers */
+  /* background: -webkit-linear-gradient(to right, #FFE47A, #3D7EAA);
+  background: linear-gradient(to right, #FFE47A, #3D7EAA); */
+  background: -webkit-linear-gradient(to right, #BEE3E8, #E6B109);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #BEE3E8, #E6B109); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+h1 {
+  font-size: 36px;
+}
+
+.tinted-image {
+  background: linear-gradient(
+      rgba(243, 192, 15, 0.3),
+      rgba(243, 192, 15, 0.3)
+  ), url('https://gatewaytoscience.org/wp-content/uploads/2014/10/il_fullxfull_310112483.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+}
+
+.App {
+
+}
+
+.nav {
+  display: flex;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 10px 0px 10px 0px;
+}
+
+.nav a {
+  flex: 1;
+  padding: 10px;
+  margin: 5px 15px;
+  border: 1px solid #F3C00F;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #F3C00F;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.nav a:hover, .selected {
+  background: #F3C00F;
+  color: #fff !important;
+}
+
+.home {
+  text-align: center;
+}
+
+.login *,
+.signup * {
+  font-size: 16px;
+}
+
+.login label {
+  margin: 0 20px;
+}
+
+.login input[type="submit"] {
+  margin: 10px 20px;
+}
+
+.signup label {
+  margin: 0 20px;
+}
+
+.signup input[type="submit"] {
+  margin: 0 20px;
+}
+
+.game-timer {
+  text-align: center;
+}
+
+div.my-games, div.high-scores {
+  margin-left: 20px;
+}
+
+input[type=text], input[type=password], select {
+  width: 40%;
+  padding: 8px 10px;
+  margin: 0px 20px 20px 0px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  font-size: 20px;
+  width: 55%;
+  background-color: #F3C00F;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.guess-form input[type="text"] {
+  width: 40%;
+  padding: 8px 10px;
+  margin: 0 auto;
+  /* display: inline-block; */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #C18814;
+    /* margin: 0 auto; */
+}
+
+.guess-form input[type="submit"] {
+  width: 20%;
+  font-size: 16px;
+  background-color: #F3C00F;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.guess-form input[type="submit"]:hover {
+    background-color: #C18814;
+}
+
+.guess-form {
+  /* text-align: center; */
+  background-color: rgba(255, 255, 255, 0.7);
+  box-shadow: 3px 3px 20px #000;
+  border-radius: 10px;
+  width: 35%;
+  padding: 2px 0 10px 0;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+div.login, div.signup, div.instructions, div.your-words {
+  width: 35%;
+  text-align: center;
+  margin: 0 auto;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 0rem 0px 4rem;
+  box-shadow: 3px 3px 20px #000;
+}
+
+h1.login-form, h1.signup-form {
+  font-size: 36px;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 1.5rem;
+  border-radius: 10px 10px 0px 0px;
+  background-color: #F3C00F;
+  margin-bottom: 3rem;
+}
+
+.game {
+  text-align: center;
+}
+
+.start {
+  text-align: center;
+  padding: 0 20px 0 20px;
+}
+
+.start div {
+  margin-bottom: 50px;
+}
+
+.instructions button {
+  font-size: 20px;
+  width: 30%;
+  background-color: #F3C00F;
+  color: white;
+  padding: 14px;
+  margin: 25px 0 0 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.instructions p, .your-words p, .my-guesses p {
+  width: 70%;
+  margin: auto;
+  padding: 10px 0 10px 0;
+  color: #706d63;
+}
+
+.instructions button:hover {
+  background-color: #C18814;
+}
+
+.instructions h2, .your-words h2 {
+  margin-top: 0px;
+  font-size: 3vw;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 1.5rem;
+  border-radius: 10px 10px 0px 0px;
+  background-color: #F3C00F;
+  margin-bottom: 3rem;
+}
+
+.your-words h4 {
+  font-size: 26px;
+
+}
+
+.your-words, .my-guesses {
+  color: #706d63;
+}
+
+.high-scores h2, .my-games h2 {
+  font-size: 38px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.games-table {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    text-align: center;
+    /* border-collapse: separate; */
+    width: 50%;
+    margin: 0 auto;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    background-color: #ddd;
+    box-shadow: 1px 5px 20px #000;
+    margin-bottom: 50px;
+    padding: 0 0 10px 0;
+}
+
+.games-table td, .games-table th {
+  /* width: 50%; */
+  padding: 10px 8px 8px 8px;
+}
+
+.games-table td {color: #706d63;}
+
+.games-table tr {background-color: #f2f2f2;}
+
+.games-table tr:hover {background-color: #ddd;}
+
+.games-table th {
+  text-align: center;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  background-color: #F3C00F;
+  color: white;
+  font-size: 26px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  text-shadow: 2px 2px 5px #212121;
+}
+
+.alt-text {
+  font-size: 26px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.boldme {
+  font-weight: 600;
+}
+
+div.my-guesses {
+  width: 35%;
+  height: 200px;
+  text-align: center;
+  margin: 0 auto;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 0rem 0px 4rem;
+  box-shadow: 3px 3px 20px #000;
+  /* overflow: scroll; */
+}
+
+.my-guesses h2 {
+  margin-top: 0px;
+  font-size: 25px;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 1.5rem;
+  border-radius: 10px 10px 0px 0px;
+  background-color: #F3C00F;
+}
+
+div.scroll {
+  height: 120px;
+  margin: 0 5px;
+  /* position: fixed; */
+  overflow-y: scroll;
+}
+
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 10px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, .5);
+  -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+}
+
+.game-timer {
+  font-size: 64px;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0px;
+}
+
+.scrambled {
+  font-size: 36px;
+  color: #706d63;
+  margin: 15px;
+}
+
+.word-timer{
+  font-size: 24px;
+  color: #706d63;
+  margin: 15px;
+}
+
+.score {
+  font-size: 24px;
+  color: #706d63;
+}
+
+.home h3 {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 42px;
 }

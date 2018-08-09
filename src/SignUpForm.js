@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+const IP = window.location.hostname
+// `192.168.6.120`
+
 class SignUpForm extends Component {
   state = {
     username: "",
@@ -15,7 +18,7 @@ class SignUpForm extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
 
-    fetch(`http://localhost:3000/api/v1/users/`, {
+    fetch(`http://${IP}:3000/api/v1/users/`, {
       method: 'POST',
       headers: {
         "Content-Type": 'application/json'
@@ -30,9 +33,14 @@ class SignUpForm extends Component {
       })
   }
 
+  componentWillMount () {
+    document.body.className = 'tinted-image'
+  }
+
   render() {
     return (
       <div className="signup">
+        <h1 className="signup-form">REGISTER</h1>
         <form onSubmit={this.handleSubmit}>
           <label htmlFor="username">Username</label>
           <input
@@ -42,6 +50,7 @@ class SignUpForm extends Component {
             onChange={this.handleChange}
             value={this.state.username}
           />
+          <br />
           <label htmlFor="password">Password</label>
           <input
             type="password"
