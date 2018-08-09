@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import UUID from 'uuid'
 import { ActionCable } from 'react-actioncable-provider'
 
-const IP = `192.168.6.192`
+const IP = window.location.hostname
+// `192.168.6.192`
 // const user_game_url = `http://localhost:3000/api/v1/user_games/`
 // const game_url = `http://localhost:3000/api/v1/games`
 // const post_score_url = `http://localhost:3000/api/v1/user_games/${this.state.userGameId}`
@@ -177,8 +178,8 @@ class Game extends Component {
         game_id: Number(this.state.gameId)
       })
     })
-
-    setTimeout(()=> {this.props.history.push("/high-scores");}, 10000)
+    //
+    // setTimeout(()=> {this.props.history.push("/high-scores");}, 10000)
     // this.patchUserGames()
   }
 
@@ -261,6 +262,8 @@ class Game extends Component {
 
     this.setState({
       allWords: wordsarray,
+      currentAnagrams: [],
+      allWordGuesses: []
     }, () => {this.fetchAnagrams()})
   }
 
@@ -285,9 +288,10 @@ class Game extends Component {
 
   updateAllAnagrams = () => {
     let currentWordAnagrams = this.state.currentAnagrams.slice(0)
+
     if (currentWordAnagrams.length === 0) {
       currentWordAnagrams.push(this.state.currentWord.word)
-    } else if (!currentWordAnagrams.includes(this.state.currentWord.word) && currentWordAnagrams[0].length===this.state.currentWord.word.length) {
+    } else if (!currentWordAnagrams.includes(this.state.currentWord.word) && currentWordAnagrams[0].length===this.state.currentWord.word.length && !this.state.allWords.includes(this.state.currentWord.word)) {
       currentWordAnagrams.push(this.state.currentWord.word)
     } else if (!currentWordAnagrams.includes(this.state.currentWord.word)) {
       currentWordAnagrams = [this.state.currentWord.word]
@@ -303,7 +307,10 @@ class Game extends Component {
 
 
     let allWordAnagrams = this.state.allAnagrams.slice(0)
-    allWordAnagrams.push(currentWordAnagrams)
+
+    if (!this.state.allAnagrams.includes(currentWordAnagrams)) {
+      allWordAnagrams.push(currentWordAnagrams)
+    }
     this.setState({
       currentAnagrams: currentWordAnagrams,
       allAnagrams: allWordAnagrams,
@@ -346,6 +353,21 @@ class Game extends Component {
       }
     }
     return scrambled
+
+
+
+    // let original = word.toLowerCase()
+    // let scrambled = original
+    // let wordArray = word.toLowerCase().split('')
+
+    // while (scrambled === original) {
+    //   scrambled = ''
+    //   let wordArray = original.toLowerCase().split('')
+    //   while (wordArray.length > 0) {
+    //     scrambled += wordArray.splice(Math.floor(word.length * Math.random()), 1)
+    //   }
+    // }
+    // return scrambled
   }
 
   handleChange = (event) => {
@@ -432,7 +454,7 @@ class Game extends Component {
 
     return(
       <div className="your-words">
-        <h2>YOUR WORDS</h2>
+        <h2>ANAGRAMS</h2>
         <h4>Score: {this.state.score}</h4>
         {anagrams}
       </div>

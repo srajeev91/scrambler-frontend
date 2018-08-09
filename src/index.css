@@ -338,3 +338,8 @@ div.scroll {
   font-size: 24px;
   color: #706d63;
 }
+
+.home h3 {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 42px;
+}

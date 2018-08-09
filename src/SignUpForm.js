@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
-const IP = `192.168.6.192`
+const IP = window.location.hostname
+// `192.168.6.120`
 
 class SignUpForm extends Component {
   state = {

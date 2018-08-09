@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import UUID from 'uuid'
 
-const IP = `192.168.6.192`
+const IP = window.location.hostname
+// `192.168.6.192`
 
 class MyGames extends Component {
   state = {

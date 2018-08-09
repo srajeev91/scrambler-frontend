@@ -6,7 +6,8 @@ import App from './App';
 import { ActionCableProvider } from 'react-actioncable-provider'
 import registerServiceWorker from './registerServiceWorker';
 
-const IP = `192.168.6.192`
+const IP = window.location.hostname
+// `192.168.6.120`
 
 // console.log('actionCable', actionCable)
 
