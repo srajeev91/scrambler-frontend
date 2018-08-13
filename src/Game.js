@@ -118,7 +118,7 @@ class Game extends Component {
     if (this.gameInterval === 0) {
       this.gameInterval = setInterval(() => {this.gameCountDown()}, 1000);
     }
-    console.log('startTimer', this.gameInterval)
+    // console.log('startTimer', this.gameInterval)
   }
 
   startWordTimer = () => {
@@ -126,7 +126,7 @@ class Game extends Component {
       // clearInterval(this.wordInterval)
       clearInterval(this.wordInterval);
       this.wordInterval = setInterval(() => {this.wordCountDown()}, 1000);
-      console.log('startWordTimer',this.wordInterval)
+      // console.log('startWordTimer',this.wordInterval)
     // }
   }
 
@@ -137,7 +137,7 @@ class Game extends Component {
     });
 
     if (seconds === 0) {
-      console.log('in wordCountDown', this.wordInterval)
+      // console.log('in wordCountDown', this.wordInterval)
       clearInterval(this.wordInterval);
       this.getWord()
     }
@@ -196,7 +196,7 @@ class Game extends Component {
 
   getWord () {
     if (this.state.wordTimer !== 0) {
-      console.log('in get word', this.wordInterval)
+      // console.log('in get word', this.wordInterval)
       clearInterval(this.wordInterval);
     }
 
@@ -279,6 +279,7 @@ class Game extends Component {
         scrambled: this.randomize(this.state.currentWord.word),
         currentAnagrams: data.map(wordObj => wordObj.word.toLowerCase())
       }, () => {
+        console.log('fetch anagrams scrambled', this.state.scrambled);
         this.updateAllAnagrams()
       })
     )
@@ -449,7 +450,9 @@ class Game extends Component {
   }
 
   gameOver = () => {
-    let anagrams = this.state.allAnagrams.map(arr => <p key={UUID()}>{String(arr)}</p>)
+    let set  = new Set(this.state.allAnagrams.map(JSON.stringify));
+    let anagrams = Array.from(set).map(JSON.parse);
+    anagrams = anagrams.map(arr => <p key={UUID()}>{String(arr)}</p>)
 
     return(
       <div className="your-words">
@@ -461,7 +464,7 @@ class Game extends Component {
   }
 
   componentWillUnmount() {
-    console.log('componentWillUnmount', this.gameInterval, this.wordInterval)
+    // console.log('componentWillUnmount', this.gameInterval, this.wordInterval)
     clearInterval(this.gameInterval);
     clearInterval(this.wordInterval);
   }

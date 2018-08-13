@@ -15,7 +15,7 @@ class HighScores extends Component {
     .then(data => {
       this.setState({
         highScores: data
-      }, () => {console.log('HIGHSCORES')})
+      })
     })
   }
 
